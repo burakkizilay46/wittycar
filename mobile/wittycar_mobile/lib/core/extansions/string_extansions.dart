@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 
 import '../constants/app/app_constants.dart';
@@ -19,9 +19,7 @@ extension AuthorizationExtension on String {
   Map<String, dynamic> get bearer => {'Authorization': 'Bearer $this'};
 }
 
-extension LocaleExtension on String {
-  String get locale => this.tr();
-}
+
 
 extension NetworkImageExtension on String {
   String get randomImage => 'https://picsum.photos/200/300';
