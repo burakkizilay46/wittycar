@@ -33,22 +33,29 @@ export class AuthService {
 
       // Create user document in Firestore - use Firestore Timestamp instead of Date
       const now = Timestamp.now();
+      
+      // Build user document with required fields
       const userDoc: any = {
         uid: userRecord.uid,
         email: userRecord.email!,
-        phoneNumber: userRecord.phoneNumber || '+11234567890',
-        emailVerified: false,
+        emailVerified: userRecord.emailVerified || false,
         createdAt: now,
         updatedAt: now,
         isActive: true,
       };
 
-      // Only add optional fields if they have values
+      // Add optional fields if they have values
       if (userData.displayName && userData.displayName.trim()) {
         userDoc.displayName = userData.displayName.trim();
       }
+      
+      // Use phoneNumber from userData first, then from userRecord, or default
       if (userData.phoneNumber && userData.phoneNumber.trim()) {
         userDoc.phoneNumber = userData.phoneNumber.trim();
+      } else if (userRecord.phoneNumber) {
+        userDoc.phoneNumber = userRecord.phoneNumber;
+      } else {
+        userDoc.phoneNumber = null; // Explicitly set to null instead of default
       }
 
       // Filter out undefined values completely
@@ -59,30 +66,56 @@ export class AuthService {
       console.log("🚀 ~ AuthService ~ registerUser ~ About to save to Firestore:", {
         collection: COLLECTIONS.USERS,
         docId: userRecord.uid,
-        data: filteredUserDoc
+        data: filteredUserDoc,
+        fieldCount: Object.keys(filteredUserDoc).length
       });
 
-      // Save user document to Firestore
-      try {
-        await db.collection(COLLECTIONS.USERS).doc(userRecord.uid).set(filteredUserDoc);
-        console.log("✅ ~ AuthService ~ registerUser ~ User saved to Firestore successfully");
-      } catch (firestoreError: any) {
-        console.error("❌ ~ AuthService ~ registerUser ~ Firestore save failed:", {
-          error: firestoreError,
-          code: firestoreError.code,
-          message: firestoreError.message,
-          details: firestoreError.details
-        });
-        
-        // Clean up: delete the user from Firebase Auth since Firestore save failed
+      // Save user document to Firestore with retry mechanism
+      let saveSuccess = false;
+      let saveAttempts = 0;
+      const maxRetries = 3;
+      
+      while (!saveSuccess && saveAttempts < maxRetries) {
+        saveAttempts++;
         try {
-          await auth.deleteUser(userRecord.uid);
-          console.log("🧹 ~ AuthService ~ registerUser ~ Cleaned up Auth user due to Firestore failure");
-        } catch (cleanupError) {
-          console.error("⚠️ ~ AuthService ~ registerUser ~ Failed to cleanup Auth user:", cleanupError);
+          // Use set with merge: false to ensure we create a new document
+          await db.collection(COLLECTIONS.USERS).doc(userRecord.uid).set(filteredUserDoc, { merge: false });
+          
+          // Verify the document was actually saved by reading it back
+          const verifyDoc = await db.collection(COLLECTIONS.USERS).doc(userRecord.uid).get();
+          if (verifyDoc.exists && verifyDoc.data()) {
+            const savedData = verifyDoc.data();
+            console.log("✅ ~ AuthService ~ registerUser ~ User saved and verified in Firestore:", {
+              savedFields: Object.keys(savedData || {}),
+              attempt: saveAttempts
+            });
+            saveSuccess = true;
+          } else {
+            throw new Error('Document verification failed - document not found after save');
+          }
+        } catch (firestoreError: any) {
+          console.error(`❌ ~ AuthService ~ registerUser ~ Firestore save attempt ${saveAttempts} failed:`, {
+            error: firestoreError,
+            code: firestoreError.code,
+            message: firestoreError.message,
+            details: firestoreError.details
+          });
+          
+          if (saveAttempts >= maxRetries) {
+            // Clean up: delete the user from Firebase Auth since Firestore save failed
+            try {
+              await auth.deleteUser(userRecord.uid);
+              console.log("🧹 ~ AuthService ~ registerUser ~ Cleaned up Auth user due to Firestore failure");
+            } catch (cleanupError) {
+              console.error("⚠️ ~ AuthService ~ registerUser ~ Failed to cleanup Auth user:", cleanupError);
+            }
+            
+            throw new Error(`Failed to save user to database after ${maxRetries} attempts: ${firestoreError.message}`);
+          }
+          
+          // Wait before retry
+          await new Promise(resolve => setTimeout(resolve, 1000 * saveAttempts));
         }
-        
-        throw new Error(`Failed to save user to database: ${firestoreError.message}`);
       }
 
       // Generate JWT token

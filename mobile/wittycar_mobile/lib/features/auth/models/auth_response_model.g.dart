@@ -42,8 +42,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   phoneNumber: json['phoneNumber'] as String?,
   emailVerified: json['emailVerified'] as bool?,
   isActive: json['isActive'] as bool?,
-  createdAtTimestamp: json['createdAt'] as Map<String, dynamic>?,
-  updatedAtTimestamp: json['updatedAt'] as Map<String, dynamic>?,
+  createdAt: json['createdAt'] as String?,
+  updatedAt: json['updatedAt'] as String?,
 );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -53,6 +53,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'phoneNumber': instance.phoneNumber,
   'emailVerified': instance.emailVerified,
   'isActive': instance.isActive,
-  'createdAt': instance.createdAtTimestamp,
-  'updatedAt': instance.updatedAtTimestamp,
+  'createdAt': instance.createdAt,
+  'updatedAt': instance.updatedAt,
 };

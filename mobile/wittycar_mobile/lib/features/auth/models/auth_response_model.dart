@@ -61,9 +61,9 @@ class UserModel {
   final bool? emailVerified;
   final bool? isActive;
   @JsonKey(name: 'createdAt')
-  final Map<String, dynamic>? createdAtTimestamp;
+  final String? createdAt;
   @JsonKey(name: 'updatedAt') 
-  final Map<String, dynamic>? updatedAtTimestamp;
+  final String? updatedAt;
 
   UserModel({
     required this.uid,
@@ -72,8 +72,8 @@ class UserModel {
     this.phoneNumber,
     this.emailVerified,
     this.isActive,
-    this.createdAtTimestamp,
-    this.updatedAtTimestamp,
+    this.createdAt,
+    this.updatedAt,
   });
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);

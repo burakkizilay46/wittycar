@@ -30,10 +30,23 @@ export const adminApp = admin.app();
 
 // Configure Firestore to ignore undefined properties
 try {
-  db.settings({
-    port: 8080,
-    ignoreUndefinedProperties: true
-  });
+  const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+  
+  if (isEmulator) {
+    // Use emulator port from firebase.json
+    db.settings({
+      host: 'localhost:8081',
+      ssl: false,
+      ignoreUndefinedProperties: true
+    });
+    console.log('🔧 Firestore configured for emulator mode (localhost:8081)');
+  } else {
+    // Production settings
+    db.settings({
+      ignoreUndefinedProperties: true
+    });
+    console.log('🔧 Firestore configured for production mode');
+  }
 } catch (error) {
   console.warn('Failed to set Firestore settings:', error);
 }
