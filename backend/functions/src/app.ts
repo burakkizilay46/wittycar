@@ -6,6 +6,7 @@ import morgan from 'morgan';
 
 // Import routes
 import authRoutes from './routes/auth.routes';
+import vehicleRoutes from './routes/vehicles';
 
 // Import middleware
 import { errorHandler, notFoundHandler } from './middleware/error.middleware';
@@ -68,6 +69,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/vehicles', vehicleRoutes);
 
 // API info endpoint
 app.get('/api/v1', (req, res) => {
@@ -76,6 +78,7 @@ app.get('/api/v1', (req, res) => {
     message: 'WittyCar API v1.0',
     endpoints: {
       auth: '/api/v1/auth',
+      vehicles: '/api/v1/vehicles',
       health: '/health',
     },
     timestamp: new Date(),

@@ -3,6 +3,8 @@ import 'package:wittycar_mobile/core/components/not_found/not_found_navigation.d
 import 'package:wittycar_mobile/features/home/view/home_view.dart';
 import 'package:wittycar_mobile/features/auth/views/login_view.dart';
 import 'package:wittycar_mobile/features/auth/views/register_view.dart';
+import 'package:wittycar_mobile/features/vehicles/views/vehicle_list_view.dart';
+import 'package:wittycar_mobile/features/vehicles/views/add_vehicle_view.dart';
 
 import '../../constants/navigation/navigation_constants.dart';
 
@@ -26,6 +28,10 @@ class NavigationRoute {
         return normalNavigate(const LoginView());
       case NavigationConstants.REGISTER:
         return normalNavigate(const RegisterView());
+      case NavigationConstants.VEHICLES_LIST:
+        return normalNavigate(const VehicleListView());
+      case NavigationConstants.VEHICLES_ADD:
+        return normalNavigate(const AddVehicleView());
 
       default:
         return normalNavigate(const NotFoundNavigation());

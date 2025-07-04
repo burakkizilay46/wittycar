@@ -12,11 +12,11 @@ AuthRequestModel _$AuthRequestModelFromJson(Map<String, dynamic> json) =>
       password: json['password'] as String,
       displayName: json['displayName'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-    );
+    )..localId = (json['localId'] as num?)?.toInt();
 
 Map<String, dynamic> _$AuthRequestModelToJson(AuthRequestModel instance) =>
     <String, dynamic>{
-      
+      'localId': instance.localId,
       'email': instance.email,
       'password': instance.password,
       if (instance.displayName case final value?) 'displayName': value,

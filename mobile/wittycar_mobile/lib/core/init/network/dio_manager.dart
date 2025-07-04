@@ -1,9 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:wittycar_mobile/core/constants/app/app_constants.dart';
-import 'package:wittycar_mobile/core/init/network/dio_client.dart';
-import 'package:dio/dio.dart';
 import 'package:wittycar_mobile/core/init/cache/token_manager.dart';
+import 'package:dio/dio.dart';
 import './dio_config.dart';
 
 class DioManager {

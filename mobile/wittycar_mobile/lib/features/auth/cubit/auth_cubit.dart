@@ -51,9 +51,6 @@ class AuthCubit extends Cubit<AuthState> with BaseCubit {
     emit(AuthLoading());
     
     try {
-      // Get or generate localId
-      final localId = await _tokenManager.getOrGenerateLocalId();
-      
       final request = AuthRequestModel.login(
         email: email,
         password: password,

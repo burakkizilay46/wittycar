@@ -10,7 +10,7 @@ async function testFirestoreConnection() {
     
     // 2. Test basic Firestore connection
     console.log('2. Testing Firestore connection...');
-    const testDoc = await db.collection('test').doc('connection').get();
+    await db.collection('test').doc('connection').get();
     console.log('✅ Firestore connection works');
     
     // 3. Test writing to a test collection
