@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wittycar_mobile/core/components/not_found/not_found_navigation.dart';
 import 'package:wittycar_mobile/features/home/view/home_view.dart';
+import 'package:wittycar_mobile/features/auth/views/login_view.dart';
+import 'package:wittycar_mobile/features/auth/views/register_view.dart';
 
 import '../../constants/navigation/navigation_constants.dart';
 
@@ -17,9 +19,13 @@ class NavigationRoute {
 
     switch (args.name) {
       case NavigationConstants.DEFAULT:
-        return normalNavigate(const HomeView());
+        return normalNavigate(const LoginView());
       case NavigationConstants.HOME:
         return normalNavigate(const HomeView());
+      case NavigationConstants.LOGIN:
+        return normalNavigate(const LoginView());
+      case NavigationConstants.REGISTER:
+        return normalNavigate(const RegisterView());
 
       default:
         return normalNavigate(const NotFoundNavigation());

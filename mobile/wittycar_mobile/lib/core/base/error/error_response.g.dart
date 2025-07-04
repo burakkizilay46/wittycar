@@ -12,9 +12,10 @@ ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) =>
       code: json['code'] as String?,
       message: json['message'] as String?,
       status: (json['status'] as num?)?.toInt(),
-      errors: (json['errors'] as List<dynamic>?)
-          ?.map((e) => ErrorType.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      errors:
+          (json['errors'] as List<dynamic>?)
+              ?.map((e) => ErrorType.fromJson(e as Map<String, dynamic>))
+              .toList(),
     );
 
 Map<String, dynamic> _$ErrorResponseToJson(ErrorResponse instance) =>
@@ -27,11 +28,11 @@ Map<String, dynamic> _$ErrorResponseToJson(ErrorResponse instance) =>
     };
 
 ErrorType _$ErrorTypeFromJson(Map<String, dynamic> json) => ErrorType(
-      error: json['error'] as String?,
-      value: (json['value'] as num?)?.toDouble(),
-    );
+  error: json['error'] as String?,
+  value: (json['value'] as num?)?.toDouble(),
+);
 
 Map<String, dynamic> _$ErrorTypeToJson(ErrorType instance) => <String, dynamic>{
-      'error': instance.error,
-      'value': instance.value,
-    };
+  'error': instance.error,
+  'value': instance.value,
+};

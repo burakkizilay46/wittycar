@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wittycar_mobile/core/init/cache/shared_prefs_manager.dart';
+import 'package:wittycar_mobile/core/init/cache/token_manager.dart';
 import 'package:wittycar_mobile/core/init/navigation/navigation_routes.dart';
 import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 import 'package:wittycar_mobile/core/init/theme/app_theme_manager.dart';
@@ -32,7 +33,33 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> init() async {
+  // Ensure Flutter is properly initialized before any async operations
   WidgetsFlutterBinding.ensureInitialized();
-  await servicelocator.init();
-  await SharedPrefsManager.preferencesInit();
+  
+  print('🚀 Initializing WittyCar app...');
+  
+  try {
+    // Initialize dependency injection
+    await servicelocator.init();
+    print('✅ Service locator initialized');
+    
+    // Initialize SharedPreferences
+    await SharedPrefsManager.preferencesInit();
+    print('✅ SharedPreferences initialized');
+    
+    // Test secure storage functionality
+    final tokenManager = TokenManager.instance;
+    final secureStorageWorks = await tokenManager.testSecureStorage();
+    
+    if (secureStorageWorks) {
+      print('✅ Secure storage test passed');
+    } else {
+      print('⚠️  Secure storage test failed - will use fallback storage');
+    }
+    
+    print('🎉 App initialization completed successfully');
+  } catch (e) {
+    print('❌ Error during app initialization: $e');
+    // Don't crash the app, let it start with degraded functionality
+  }
 }

@@ -25,9 +25,13 @@ class SharedPrefsManager {
     await _preferences!.setBool(key.name, value!);
   }
 
-  String getStringValue(SharedPrefKeys key) =>
-      _preferences!.getString(key.name) ?? '';
+  String? getStringValue(SharedPrefKeys key) =>
+      _preferences!.getString(key.name);
 
   bool getBoolValue(SharedPrefKeys key) =>
       _preferences!.getBool(key.name) ?? true;
+
+  Future<void> removeValue(SharedPrefKeys key) async {
+    await _preferences!.remove(key.name);
+  }
 }
