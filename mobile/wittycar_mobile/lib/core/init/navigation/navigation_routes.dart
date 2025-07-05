@@ -7,6 +7,8 @@ import 'package:wittycar_mobile/features/vehicles/views/vehicle_list_view.dart';
 import 'package:wittycar_mobile/features/vehicles/views/add_vehicle_view.dart';
 import 'package:wittycar_mobile/features/vehicle_detail/views/vehicle_detail_view.dart';
 import 'package:wittycar_mobile/features/vehicles/models/vehicle_model.dart';
+import 'package:wittycar_mobile/features/appointments/views/my_appointments_view.dart';
+import 'package:wittycar_mobile/features/appointments/views/appointment_booking_view.dart';
 
 import '../../constants/navigation/navigation_constants.dart';
 
@@ -39,6 +41,10 @@ class NavigationRoute {
           return normalNavigate(VehicleDetailView(vehicle: args.arguments as VehicleModel));
         }
         return normalNavigate(const NotFoundNavigation());
+      case NavigationConstants.MY_APPOINTMENTS:
+        return normalNavigate(const MyAppointmentsView());
+      case NavigationConstants.APPOINTMENT_BOOKING:
+        return normalNavigate(const AppointmentBookingView());
 
       default:
         return normalNavigate(const NotFoundNavigation());

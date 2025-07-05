@@ -63,4 +63,5 @@ export const COLLECTIONS = {
   MAINTENANCE_RECORDS: 'maintenanceRecords',
   SERVICE_REMINDERS: 'serviceReminders',
   SERVICE_RECORDS: 'serviceRecords',
+  APPOINTMENTS: 'appointments',
 } as const; 

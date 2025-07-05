@@ -59,9 +59,9 @@ class HomeView extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             SizedBox(height: 32.h),
-            
+
             // Quick Actions Section
             Text(
               'Quick Actions',
@@ -71,9 +71,8 @@ class HomeView extends StatelessWidget {
                 color: Colors.grey[800],
               ),
             ),
-            
             SizedBox(height: 16.h),
-            
+
             // Action Cards
             Expanded(
               child: GridView.count(
@@ -97,17 +96,10 @@ class HomeView extends StatelessWidget {
                   _buildActionCard(
                     context: context,
                     icon: Icons.build,
-                    title: 'Maintenance',
-                    subtitle: 'Track maintenance',
+                    title: 'Appointments',
+                    subtitle: 'Track your appointments',
                     color: Colors.orange,
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Maintenance tracking coming soon!'),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
+                    onTap: () => Navigator.pushNamed(context, '/appointments'),
                   ),
                   _buildActionCard(
                     context: context,
@@ -158,9 +150,7 @@ class HomeView extends StatelessWidget {
   }) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12.r),
@@ -175,11 +165,7 @@ class HomeView extends StatelessWidget {
                   color: color.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                child: Icon(
-                  icon,
-                  size: 24.sp,
-                  color: color,
-                ),
+                child: Icon(icon, size: 24.sp, color: color),
               ),
               SizedBox(height: 8.h),
               Text(
@@ -196,10 +182,7 @@ class HomeView extends StatelessWidget {
               SizedBox(height: 2.h),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 10.sp, color: Colors.grey[600]),
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

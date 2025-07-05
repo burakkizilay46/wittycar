@@ -7,6 +7,7 @@ import morgan from 'morgan';
 // Import routes
 import authRoutes from './routes/auth.routes';
 import vehicleRoutes from './routes/vehicles';
+import appointmentRoutes from './routes/appointments';
 
 // Import middleware
 import { errorHandler, notFoundHandler } from './middleware/error.middleware';
@@ -69,6 +70,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/appointments', appointmentRoutes);
 app.use('/api/v1/vehicles', vehicleRoutes);
 
 // API info endpoint
