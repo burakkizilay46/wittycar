@@ -7,6 +7,8 @@ import 'package:wittycar_mobile/features/auth/services/auth_service.dart';
 import 'package:wittycar_mobile/features/auth/cubit/auth_cubit.dart';
 import 'package:wittycar_mobile/features/vehicles/services/vehicle_service.dart';
 import 'package:wittycar_mobile/features/vehicles/cubit/vehicles_cubit.dart';
+import 'package:wittycar_mobile/features/vehicle_detail/services/service_record_service.dart';
+import 'package:wittycar_mobile/features/vehicle_detail/cubit/vehicle_detail_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -36,6 +38,11 @@ Future<void> init() async {
     () => VehicleService(dioManager: locator<DioManager>()),
   );
   
+  // Register ServiceRecordService
+  locator.registerLazySingleton<ServiceRecordService>(
+    () => ServiceRecordService(dioManager: locator<DioManager>()),
+  );
+  
   // Register AuthCubit
   locator.registerFactory<AuthCubit>(
     () => AuthCubit(
@@ -47,6 +54,13 @@ Future<void> init() async {
   locator.registerFactory<VehiclesCubit>(
     () => VehiclesCubit(
       vehicleService: locator<VehicleService>(),
+    ),
+  );
+  
+  // Register VehicleDetailCubit
+  locator.registerFactory<VehicleDetailCubit>(
+    () => VehicleDetailCubit(
+      serviceRecordService: locator<ServiceRecordService>(),
     ),
   );
 }

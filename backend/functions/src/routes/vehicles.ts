@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { VehiclesController } from '../controllers/vehiclesController';
+import { ServiceRecordController } from '../controllers/serviceRecordController';
 import { authenticateToken } from '../middleware/auth.middleware';
 import { asyncHandler } from '../middleware/error.middleware';
 
 const router = Router();
 const vehiclesController = new VehiclesController();
+const serviceRecordController = new ServiceRecordController();
 
 /**
  * @route   GET /vehicles
@@ -19,6 +21,20 @@ router.get('/', authenticateToken, asyncHandler(vehiclesController.getUserVehicl
  * @access  Private
  */
 router.post('/', authenticateToken, asyncHandler(vehiclesController.createVehicle));
+
+/**
+ * @route   GET /vehicles/:vehicleId/service-records
+ * @desc    Get all service records for a specific vehicle
+ * @access  Private
+ */
+router.get('/:vehicleId/service-records', authenticateToken, asyncHandler(serviceRecordController.getServiceRecords));
+
+/**
+ * @route   POST /vehicles/:vehicleId/service-records
+ * @desc    Create a new service record for a vehicle
+ * @access  Private
+ */
+router.post('/:vehicleId/service-records', authenticateToken, asyncHandler(serviceRecordController.createServiceRecord));
 
 /**
  * @route   GET /vehicles/:id

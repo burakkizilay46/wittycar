@@ -7,4 +7,5 @@ class NavigationConstants {
   // Vehicles routes
   static const VEHICLES_LIST = '/vehicles';
   static const VEHICLES_ADD = '/vehicles/add';
+  static const VEHICLE_DETAIL = '/vehicle/detail';
 }

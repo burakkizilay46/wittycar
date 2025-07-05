@@ -86,12 +86,9 @@ class _VehicleListBody extends StatelessWidget {
                     return VehicleCard(
                       vehicle: vehicle,
                       onTap: () {
-                        // TODO: Navigate to vehicle details
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Araç detayları yakında gelecek!'),
-                            duration: Duration(seconds: 1),
-                          ),
+                        NavigationService.instance.navigateToPage(
+                          path: NavigationConstants.VEHICLE_DETAIL,
+                          data: vehicle,
                         );
                       },
                       onEdit: () {

@@ -5,6 +5,8 @@ import 'package:wittycar_mobile/features/auth/views/login_view.dart';
 import 'package:wittycar_mobile/features/auth/views/register_view.dart';
 import 'package:wittycar_mobile/features/vehicles/views/vehicle_list_view.dart';
 import 'package:wittycar_mobile/features/vehicles/views/add_vehicle_view.dart';
+import 'package:wittycar_mobile/features/vehicle_detail/views/vehicle_detail_view.dart';
+import 'package:wittycar_mobile/features/vehicles/models/vehicle_model.dart';
 
 import '../../constants/navigation/navigation_constants.dart';
 
@@ -32,6 +34,11 @@ class NavigationRoute {
         return normalNavigate(const VehicleListView());
       case NavigationConstants.VEHICLES_ADD:
         return normalNavigate(const AddVehicleView());
+      case NavigationConstants.VEHICLE_DETAIL:
+        if (args.arguments is VehicleModel) {
+          return normalNavigate(VehicleDetailView(vehicle: args.arguments as VehicleModel));
+        }
+        return normalNavigate(const NotFoundNavigation());
 
       default:
         return normalNavigate(const NotFoundNavigation());

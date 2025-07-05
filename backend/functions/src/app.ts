@@ -79,6 +79,7 @@ app.get('/api/v1', (req, res) => {
     endpoints: {
       auth: '/api/v1/auth',
       vehicles: '/api/v1/vehicles',
+      serviceRecords: '/api/v1/vehicles/:vehicleId/service-records',
       health: '/health',
     },
     timestamp: new Date(),
