@@ -5,7 +5,6 @@ import 'package:wittycar_mobile/core/base/view/base_view.dart';
 import 'package:wittycar_mobile/core/constants/navigation/navigation_constants.dart';
 import 'package:wittycar_mobile/core/extansions/context_extansions.dart';
 import 'package:wittycar_mobile/core/init/di/locator.dart';
-import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 import 'package:wittycar_mobile/features/appointments/cubit/appointment_cubit.dart';
 import 'package:wittycar_mobile/features/appointments/widgets/appointment_card.dart';
 
@@ -39,7 +38,7 @@ class _MyAppointmentsBody extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              locator<NavigationService>().navigateToPage(
+              context.read<AppointmentCubit>().navigation.navigateToPage(
                 path: NavigationConstants.APPOINTMENT_BOOKING,
               );
             },
@@ -112,7 +111,7 @@ class _MyAppointmentsBody extends StatelessWidget {
                     SizedBox(height: 24.h),
                     ElevatedButton(
                       onPressed: () {
-                        locator<NavigationService>().navigateToPage(
+                        context.read<AppointmentCubit>().navigation.navigateToPage(
                           path: NavigationConstants.APPOINTMENT_BOOKING,
                         );
                       },

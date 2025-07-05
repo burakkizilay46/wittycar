@@ -7,7 +7,6 @@ import 'package:wittycar_mobile/core/components/buttons/extendable_button/extend
 import 'package:wittycar_mobile/core/constants/navigation/navigation_constants.dart';
 import 'package:wittycar_mobile/core/extansions/context_extansions.dart';
 import 'package:wittycar_mobile/core/init/di/locator.dart';
-import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 import 'package:wittycar_mobile/features/auth/cubit/auth_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -191,7 +190,7 @@ class _LoginBodyState extends State<_LoginBody> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          NavigationService.instance.navigateToPage(
+                          context.read<AuthCubit>().navigation.navigateToPage(
                             path: NavigationConstants.REGISTER,
                           );
                         },

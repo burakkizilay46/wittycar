@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wittycar_mobile/core/constants/navigation/navigation_constants.dart';
 import 'package:wittycar_mobile/core/extansions/context_extansions.dart';
-import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -88,9 +87,7 @@ class HomeView extends StatelessWidget {
                     subtitle: 'Manage your vehicles',
                     color: Colors.blue,
                     onTap: () {
-                      NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.VEHICLES_LIST,
-                      );
+                      Navigator.pushNamed(context, NavigationConstants.VEHICLES_LIST);
                     },
                   ),
                   _buildActionCard(
@@ -99,7 +96,9 @@ class HomeView extends StatelessWidget {
                     title: 'Appointments',
                     subtitle: 'Track your appointments',
                     color: Colors.orange,
-                    onTap: () => Navigator.pushNamed(context, '/appointments'),
+                    onTap: () {
+                      Navigator.pushNamed(context, NavigationConstants.MY_APPOINTMENTS);
+                    },
                   ),
                   _buildActionCard(
                     context: context,

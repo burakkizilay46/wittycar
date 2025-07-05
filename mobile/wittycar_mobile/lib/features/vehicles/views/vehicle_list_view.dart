@@ -5,7 +5,6 @@ import 'package:wittycar_mobile/core/base/view/base_view.dart';
 import 'package:wittycar_mobile/core/constants/navigation/navigation_constants.dart';
 import 'package:wittycar_mobile/core/extansions/context_extansions.dart';
 import 'package:wittycar_mobile/core/init/di/locator.dart';
-import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 import 'package:wittycar_mobile/features/vehicles/cubit/vehicles_cubit.dart';
 import 'package:wittycar_mobile/features/vehicles/widgets/vehicle_card.dart';
 
@@ -39,7 +38,7 @@ class _VehicleListBody extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              NavigationService.instance.navigateToPage(
+              context.read<VehiclesCubit>().navigation.navigateToPage(
                 path: NavigationConstants.VEHICLES_ADD,
               );
             },
@@ -86,7 +85,7 @@ class _VehicleListBody extends StatelessWidget {
                     return VehicleCard(
                       vehicle: vehicle,
                       onTap: () {
-                        NavigationService.instance.navigateToPage(
+                        context.read<VehiclesCubit>().navigation.navigateToPage(
                           path: NavigationConstants.VEHICLE_DETAIL,
                           data: vehicle,
                         );
@@ -121,7 +120,7 @@ class _VehicleListBody extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          NavigationService.instance.navigateToPage(
+          context.read<VehiclesCubit>().navigation.navigateToPage(
             path: NavigationConstants.VEHICLES_ADD,
           );
         },
@@ -164,7 +163,7 @@ class _VehicleListBody extends StatelessWidget {
             SizedBox(height: 32.h),
             ElevatedButton.icon(
               onPressed: () {
-                NavigationService.instance.navigateToPage(
+                context.read<VehiclesCubit>().navigation.navigateToPage(
                   path: NavigationConstants.VEHICLES_ADD,
                 );
               },

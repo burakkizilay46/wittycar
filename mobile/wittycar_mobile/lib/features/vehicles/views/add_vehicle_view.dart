@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wittycar_mobile/core/base/view/base_view.dart';
 import 'package:wittycar_mobile/core/extansions/context_extansions.dart';
 import 'package:wittycar_mobile/core/init/di/locator.dart';
-import 'package:wittycar_mobile/core/init/navigation/navigation_service.dart';
 import 'package:wittycar_mobile/features/vehicles/cubit/vehicles_cubit.dart';
 import 'package:wittycar_mobile/features/vehicles/widgets/vehicle_form.dart';
 
@@ -37,7 +36,7 @@ class _AddVehicleBody extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            NavigationService.instance.pop();
+            context.read<VehiclesCubit>().navigation.pop();
           },
         ),
       ),
